@@ -1,0 +1,1 @@
+//fileUtils.js contains reusable file handling utilities such as reading, writing, and validating files.

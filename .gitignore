@@ -1,0 +1,38 @@
+# =========================
+# Node / NPM
+# =========================
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# =========================
+# Playwright
+# =========================
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/playwright/.screenshots/
+/playwright/.videos/
+/playwright/.traces/
+
+# =========================
+# Environment / Secrets
+# =========================
+.env   # only your main env file
+
+# =========================
+# IDE / OS files
+# =========================
+.vscode/
+.idea/
+*.iml
+*.log
+.DS_Store
+
+# =========================
+# Reports / Artifacts
+# =========================
+allure-results/
+allure-report/

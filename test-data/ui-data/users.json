@@ -1,0 +1,71 @@
+{
+    "users": [
+
+      {
+        "role": "salariedApplicant",
+        "credentials": {
+          "username": "rahul.sharma@test.com",
+          "password": "Test@123"
+        },
+        "personalDetails": {
+          "firstName": "Rahul",
+          "lastName": "Sharma",
+          "dob": "1995-06-15",
+          "phone": "9876543210",
+          "email": "rahul.sharma@test.com"
+        },
+        "address": {
+          "street": "MG Road",
+          "city": "Gurgaon",
+          "state": "Haryana",
+          "pincode": "122001"
+        },
+        "employmentDetails": {
+          "employmentType": "Salaried",
+          "companyName": "ABC Pvt Ltd",
+          "monthlyIncome": 50000,
+          "experienceInYears": 3
+        },
+        "loanDetails": {
+          "loanType": "Personal Loan",
+          "loanAmount": 500000,
+          "tenureInMonths": 36
+        }
+      },
+
+
+      {
+        "role": "selfEmployedApplicant",
+        "credentials": {
+          "username": "amit.verma@test.com",
+          "password": "Test@123"
+        },
+        "personalDetails": {
+          "firstName": "Amit",
+          "lastName": "Verma",
+          "dob": "1990-03-22",
+          "phone": "9123456780",
+          "email": "amit.verma@test.com"
+        },
+        "address": {
+          "street": "Banjara Hills",
+          "city": "Hyderabad",
+          "state": "Telangana",
+          "pincode": "500034"
+        },
+        "employmentDetails": {
+          "employmentType": "Self-Employed",
+          "businessName": "Verma Traders",
+          "annualIncome": 1200000,
+          "businessExperienceInYears": 5
+        },
+        "loanDetails": {
+          "loanType": "Business Loan",
+          "loanAmount": 1000000,
+          "tenureInMonths": 48
+        }
+      }
+
+      
+    ]
+  }
