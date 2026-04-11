@@ -8,6 +8,7 @@ class APIHelpers {
   // -------------------------
   async get(url, { headers = {}, params = {} } = {}) {     //if no headers, params are provided, they will default to an empty object. This allows the method to be called without those arguments when they're not needed...this is called object destructuring with default values.
     const response = await this.apiContext.get(url, {      //actual api call with given url, headers, params.
+      headers,
       params,
     });
 
