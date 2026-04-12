@@ -12,7 +12,7 @@ test.describe('CAP API Basic Tests', () => {
     expect(response.ok).toBeTruthy();
   });
 
-  test('Login API @api', async ({ apiHelpers }) => {
+  test('Login API @api', async ({ apiHelpers }) => {        //apiHelpers fixture is used(refers to already created object in fixture) instead of creating object each time here
     const response = await apiHelpers.post('/external/cap/api/login', {
       mobileNumber: '7042139289',
       dateOfBirth: '13/09/1997'
