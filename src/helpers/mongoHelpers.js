@@ -5,7 +5,7 @@
  * Fully aligned with Unified TestConfig
  */
 
-const { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb');  //importing the MongoClient class from the MongoDB package
 const config = require('../config/config'); // unified TestConfig
 
 class MongoDBHelper {
