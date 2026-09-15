@@ -23,7 +23,7 @@ const test = base.extend({
 
 
   //API context fixture
-  apiContext: async ({ request, env }, use) => {  //request is a built-in fixture provided by Playwright, and env is our custom environment fixture
+  apiContext: async ({ request, env }, use) => {  //request is a built-in fixture provided by Playwright: used to make api ca;ls using playwright, and env is our custom environment fixture
     const ctx = await request.newContext({
       baseURL: env.config.apiBaseUrl,
       timeout: env.framework.apiTimeout,  //is apicontext ki har request m ye timeout apply hoga.
