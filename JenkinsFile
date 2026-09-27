@@ -1,5 +1,5 @@
 import com.axis.maximus.jenkins.library.*  // Importing Groovy classes from Jenkins Shared Library (src/) for reuse in pipeline...Note: Files inside the (vars/) folder are auto-loaded, so no explicit import is required.
-def call(Map config = [:]) {               //to make this file as callable from main jenkinsfile..usually groovy file m hoti h ye line
+def call(Map config = [:]) {               //to make this file as callable from main jenkins pipeline script..usually groovy file m hoti h ye line
   pipeline {
     agent {
       kubernetes {                    //once pipeline starts: Jenkins requests kubernates to create pod                                          
@@ -16,7 +16,7 @@ def call(Map config = [:]) {               //to make this file as callable from 
             choices: ['uat', 'dev', 'qa', 'sit', 'prodSandbox'],     //values it can take...will come as dropdown..dropdown m by default first value(uat) selected rhegi
             description: 'Select the environment to run tests against'  //reflect at jenkins ui between parameter name and its values
         )
-        string(      //choice parameter hamesha 'text input' ke form me UI par dikhta hai
+        string(      //string parameter hamesha 'text input' ke form me UI par dikhta hai
             name: 'TAGS',
             defaultValue: '@smoke',
             description: 'Enter test tags to run (e.g., @smoke, @regression, @critical, @api, @ui, @smoke @api, @smoke @ui, @critical @api, @critical @ui, all)'
