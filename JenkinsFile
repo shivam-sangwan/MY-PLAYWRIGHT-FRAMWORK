@@ -3,7 +3,7 @@ def call(Map config = [:]) {               //to make this file as callable from 
   pipeline {
     agent {
       kubernetes {                    //once pipeline starts: Jenkins requests kubernates to create pod                                          
-        yaml libraryResource('build-agent-node-v22-13-0-newdev.yaml') //pulling mentioned yaml file from resources folder of shared library to create pod...Pipeline steps run inside pod containers
+        yaml libraryResource('build-agent-node-v22-13-0-newdev.yaml') //pulling mentioned yaml file from resources folder of shared library to create pod...Pipeline steps run inside pod containers...usually pod contain multiple containers but our test cases uses only one container
         podRetention onFailure()      //If build FAILS → pod retained...If build SUCCESS → pod deleted
         activeDeadlineSeconds 18000   //If pod runs for more than 18000 secs → kubernates deletes it
       }
