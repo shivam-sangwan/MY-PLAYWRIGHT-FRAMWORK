@@ -72,7 +72,7 @@ def call(Map config = [:]) {               //to make this file as callable from 
         timestamps()    //add date and time in jenkins console logs, ex: [2026-01-17 12:15:20] npm install started
     }
 
-    //Jenkins goes to Bitbucket, checks out the specified branch, and..
+    //Jenkins goes to Bitbucket, find ,entioned repo url, login with given creds, checks out the specified branch, and..
     //..brings the latest code into the pipeline workspace from that branch
     stages {
         stage('Checkout') {   //this name will reflect in pipeline as stage 1
@@ -251,6 +251,7 @@ def call(Map config = [:]) {               //to make this file as callable from 
             }
         }
 
+        //generate dummy report folder and file if playwright does not make any report
         stage('Generate Reports') {
             steps {
                 script {
@@ -294,6 +295,7 @@ def call(Map config = [:]) {               //to make this file as callable from 
             }
         }
 
+        //publish report (made by playwright after excution) in build artifacts under mentioned folder
         stage('Publish Reports') {
             steps {
                 script {
