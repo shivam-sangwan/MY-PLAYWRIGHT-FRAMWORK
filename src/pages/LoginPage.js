@@ -7,8 +7,8 @@ const { BasePage } = require('./BasePage');
 
 class LoginPage extends BasePage {
   constructor(page, uiHelpers) {
-    super(page);
-    this.ui = uiHelpers; // UIHelpers fixture
+    super(page,uiHelpers);
+    
 
     // Locators
     this.mobileNumberInput = page.getByLabel('Mobile Number');
