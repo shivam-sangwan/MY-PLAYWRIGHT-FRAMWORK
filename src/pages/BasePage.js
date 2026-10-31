@@ -4,8 +4,9 @@
  */
 
 class BasePage {
-    constructor(page) {
+    constructor(page, uiHelpers) {
       this.page = page;
+      this.ui = uiHelpers; // UIHelpers fixture
   
       // Common elements
       this.body = page.locator('body');
