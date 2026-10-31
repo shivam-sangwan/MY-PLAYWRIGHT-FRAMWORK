@@ -4,28 +4,14 @@ const { APIHelpers } = require('../utils/apiHelpers');
 const { MongoDBHelper } = require('../utils/mongoHelpers');
 const testConfig = require('../config/config');
 
+const envConfig = testConfig.getEnvironmentConfig();
+
 const test = base.extend({
 
-  //Environment fixture (worker scoped)
-  env: [async ({}, use) => {
-    const config = testConfig.get();
-
-    console.log(`[ENV] Active environment: ${config.env}`);
-    console.log(`[ENV] baseUrl: ${config.environment.baseUrl} | apiBaseUrl: ${config.environment.apiBaseUrl}`);
-
-    await use({
-      name: config.env,
-      config: config.environment,   // baseUrl + apiBaseUrl
-      framework: config.framework  // framework settings
-    });
-
-  }, { scope: 'worker' }],
-
-
   //API context fixture
-  apiContext: async ({ request, env }, use) => {  //request is a built-in fixture provided by Playwright: used to make api calls using playwright, and env is our custom environment fixture
+  apiContext: async ({ request}, use) => {  //request is a built-in fixture provided by Playwright: used to make api calls using playwright
     const ctx = await request.newContext({
-      baseURL: env.config.apiBaseUrl,
+      baseURL: envConfig.apiUrl,
       timeout: env.framework.apiTimeout,  //is apicontext ki har request m ye timeout apply hoga.
     });
 
@@ -50,7 +36,7 @@ const test = base.extend({
 
   //MongoDB fixture
   mongoDb: async ({}, use) => {
-    const mongoHelper = new MongoDBHelper();
+    const mongoHelper = new MongoDBHelper(envConfig.dbUrl);
     await use(mongoHelper);
     await mongoHelper.disconnect();
   },
