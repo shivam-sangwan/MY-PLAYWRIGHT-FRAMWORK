@@ -1,104 +1,65 @@
-// contains all db related code
 
-/**
- * MongoDB Helper for Playwright Tests
- * Fully aligned with Unified TestConfig
- */
-
-const { MongoClient } = require('mongodb');  //importing the MongoClient class from the MongoDB package
-const config = require('../config/config'); // unified TestConfig
+const { MongoClient } = require('mongodb');
 
 class MongoDBHelper {
-  constructor() {
-    const { database, env } = config.get();
-
-    this.env = env;
-    this.connectionUrl = database.mongoUrl;   // dynamic from TEST_ENV
-    this.databases = database.databases;      // CAP, KFS etc
-
+  constructor(dbUrl) {
+    this.dbUrl = dbUrl;
     this.client = null;
-    this.db = null;
   }
 
-  /* ===============================
-     Connection Management
-  =============================== */
-
-  async connect(service = 'CAP') {
-    if (!this.client) {
-      this.client = new MongoClient(this.connectionUrl);
-      await this.client.connect();
-      console.log(`[MongoDB] Connected to ${this.env.toUpperCase()} environment`);
-    }
-
-    const dbName = this.databases[service];
-
-    if (!dbName) {
-      throw new Error(`Invalid database service: ${service}`);
-    }
-
-    this.db = this.client.db(dbName);
-
-    return this.db;
+  // Connect to MongoDB
+  async connect() {
+    this.client = new MongoClient(this.dbUrl);
+    await this.client.connect();
   }
 
+  // Get database
+  getDatabase(dbName) {
+    return this.client.db(dbName);
+  }
+
+  // Insert a single document
+  async insertOne(dbName, collectionName, data) {
+    return await this.getDatabase(dbName)
+      .collection(collectionName)
+      .insertOne(data);
+  }
+
+  // Find a single document
+  async findOne(dbName, collectionName, query = {}) {
+    return await this.getDatabase(dbName)
+      .collection(collectionName)
+      .findOne(query);
+  }
+
+  // Find multiple documents
+  async findMany(dbName, collectionName, query = {}) {
+    return await this.getDatabase(dbName)
+      .collection(collectionName)
+      .find(query)
+      .toArray();
+  }
+
+  // Update a single document
+  async updateOne(dbName, collectionName, filter, updateData) {
+    return await this.getDatabase(dbName)
+      .collection(collectionName)
+      .updateOne(filter, { $set: updateData });
+  }
+
+  // Delete a single document
+  async deleteOne(dbName, collectionName, query) {
+    return await this.getDatabase(dbName)
+      .collection(collectionName)
+      .deleteOne(query);
+  }
+
+  // Disconnect from MongoDB
   async disconnect() {
     if (this.client) {
       await this.client.close();
       this.client = null;
-      this.db = null;
-      console.log('[MongoDB] Connection closed');
     }
-  }
-
-  /* ===============================
-     CRUD Operations
-     Default service = CAP
-  =============================== */
-
-  async insertOne(collection, doc, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).insertOne(doc);
-  }
-
-  async insertMany(collection, docs, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).insertMany(docs);
-  }
-
-  async findOne(collection, query = {}, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).findOne(query);
-  }
-
-  async findMany(collection, query = {}, options = {}, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).find(query, options).toArray();
-  }
-
-  async updateOne(collection, filter, update, options = {}, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).updateOne(filter, update, options);
-  }
-
-  async updateMany(collection, filter, update, options = {}, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).updateMany(filter, update, options);
-  }
-
-  async deleteOne(collection, filter, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).deleteOne(filter);
-  }
-
-  async deleteMany(collection, filter, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).deleteMany(filter);
-  }
-
-  async countDocuments(collection, query = {}, service = 'CAP') {
-    const db = await this.connect(service);
-    return db.collection(collection).countDocuments(query);
   }
 }
 
