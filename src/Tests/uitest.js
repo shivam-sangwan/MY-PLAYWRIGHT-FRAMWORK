@@ -7,7 +7,7 @@ const envConfig = config.getEnvironmentConfig();
 
 let loginPage;
 
-test.beforeEach(async ({ page, uiHelpers }, testInfo) => {
+test.beforeEach(async ({ page, uiHelpers }, testInfo) => {  //testInfo: built-in Playwright object, provides information about the currently executing test => title, passed, failed
     console.log(`Running Test: ${testInfo.title}`);
     loginPage = new LoginPage(page, uiHelpers);
 });
