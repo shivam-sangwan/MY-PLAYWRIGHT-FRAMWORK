@@ -34,9 +34,10 @@ const test = base.extend({
   },
 
 
-  //MongoDB fixture
+ // MongoDB fixture
   mongoDb: async ({}, use) => {
     const mongoHelper = new MongoDBHelper(envConfig.dbUrl);
+    await mongoHelper.connect();
     await use(mongoHelper);
     await mongoHelper.disconnect();
   },
